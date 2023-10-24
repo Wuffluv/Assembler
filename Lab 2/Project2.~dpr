@@ -6,13 +6,13 @@ var
   num, isEven: integer;
 
 begin
-  writeln('Введите число: ');
+  writeln('Enter number: ');
   readln(num);
 
   asm
     // Загрузка числа в регистр AX
     mov ax, word ptr num
-    
+
     // Проверка на четность
     test ax, 1
     jz @even
@@ -29,9 +29,9 @@ begin
   end;
 
   if isEven = 1 then
-    writeln('Число является четным.')
+    writeln('Number is even')
   else
-    writeln('Число не является четным.');
+    writeln('Number is not even');
 
   readln;
 end.
