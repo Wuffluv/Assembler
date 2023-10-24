@@ -1,0 +1,38 @@
+program EvenCheck;
+
+{$APPTYPE CONSOLE}
+
+var
+  num, isEven: integer;
+
+begin
+  writeln('Введите число: ');
+  readln(num);
+
+  asm
+    // Загрузка числа в регистр AX
+    mov ax, word ptr num
+    
+    // Проверка на четность
+    test ax, 1
+    jz @even
+    
+    // Если младший бит не ноль (число нечетное)
+    mov isEven, 0
+    jmp @done
+    
+  @even:
+    // Если число четное
+    mov isEven, 1
+    
+  @done:
+  end;
+
+  if isEven = 1 then
+    writeln('Число является четным.')
+  else
+    writeln('Число не является четным.');
+
+  readln;
+end.
+
