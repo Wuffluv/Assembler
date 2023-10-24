@@ -13,7 +13,7 @@ readln(a);
   asm
   mov ecx, 0;
   mov cx, a;
-  mov b, ecx;
+  mov b, ecx;                                                                   
   end;
 writeln(b);
 readln;
