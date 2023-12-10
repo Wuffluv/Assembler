@@ -6,38 +6,48 @@ uses
   SysUtils;
 
 var
-x, y, s:integer;
+  x, y, s: integer;
+
 begin
-readln (x);
-readln (y);
-asm
-mov eax, x
-mov ecx, y
-mov ebx , 0
+  // Ввод значений x и y с консоли
+  readln(x);
+  readln(y);
 
-mov edx, eax
-imul edx, ecx
-imul edx, ecx
-imul edx, eax
-imul edx, 3
+  // Вставка ассемблерного кода для выполнения вычислений
+  asm
+    // Начало блока ассемблерного кода
+    mov eax, x        // Загрузка x в регистр eax
+    mov ecx, y        // Загрузка y в регистр ecx
+    mov ebx, 0        // Обнуление регистра ebx
 
-mov ebx, edx
+    mov edx, eax      // Копирование значения x в регистр edx
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, eax     // Умножение edx на значение x
+    imul edx, 3       // Умножение edx на 3
 
-imul edx, ecx, 2
-imul edx, ecx
-imul edx, eax
+    mov ebx, edx      // Копирование значения edx в регистр ebx
 
-sub ebx,edx
+    imul edx, ecx, 2  // Умножение edx на значение y, умноженное на 2
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, eax     // Умножение edx на значение x
 
-imul edx, ecx, 7
-imul edx, eax
-imul edx, eax
+    sub ebx, edx      // Вычитание значения edx из значения ebx
 
-sub ebx,edx
+    imul edx, ecx, 7  // Умножение edx на значение y, умноженное на 7
+    imul edx, eax     // Умножение edx на значение x
+    imul edx, eax     // Умножение edx на значение x
 
-add ebx,6
+    sub ebx, edx      // Вычитание значения edx из значения ebx
 
-mov s, ebx
-end;
-writeln (s);
+    add ebx, 6        // Прибавление к значению ebx 6
+
+    mov s, ebx        // Сохранение значения ebx в переменную s
+  end;
+  // Конец блока ассемблерного кода
+
+  // Вывод значения переменной s
+  writeln(s);
+  readln;
 end.
+
