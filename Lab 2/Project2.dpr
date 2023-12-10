@@ -1,34 +1,43 @@
-program EvenCheck;
+program Calculator;
 
 {$APPTYPE CONSOLE}
 
+uses
+  SysUtils;
+
 var
-  num, isEven: integer;
-
+x, y, s:integer;
 begin
-  writeln('Enter number: ');
-  readln(num);
+readln (x);
+readln (y);
+asm
+mov eax, x
+mov ecx, y
+mov ebx , 0
 
-  asm
-    // Загрузка числа в регистр AX
-    mov ax, word ptr num
-    // Проверка на четность
-    test ax, 1  // логическое И между 'ax' и '1'
-    jnz @notEven    // Проверка на 0, переходит к @notEven. jnz - переход по "не нуль"
-    // Если младший бит установлен - число четное
-    mov isEven, 1
-    jmp @done //Переходим к завершению
-  @notEven:
-    // Если число нечетное
-    mov isEven, 0
-  @done:
-  end;
+mov edx, eax
+imul edx, ecx
+imul edx, ecx
+imul edx, eax
+imul edx, 3
 
-  if isEven = 1 then
-    writeln('Number is even')
-  else
-    writeln('Number is not even');
+mov ebx, edx
 
-  readln;
+imul edx, ecx, 2
+imul edx, ecx
+imul edx, eax
+
+sub ebx,edx
+
+imul edx, ecx, 7
+imul edx, eax
+imul edx, eax
+
+sub ebx,edx
+
+add ebx,6
+
+mov s, ebx
+end;
+writeln (s);
 end.
-
