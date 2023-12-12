@@ -22,13 +22,15 @@ begin
 
 
   asm
+  @_start: //Метка начала
     // Инициализация результата
-    mov result, 1
+    mov ebx, 0
+    @for_start: // Метка старта цикла
 
     // Цикл по массиву a
     mov ecx, n        // Регистр ecx для хранения количества элементов массива
     mov esi, 1        // Регистр esiдля индексации массива
-    @multiplyLoop:
+
       // Загрузка текущего элемента в регистр ebx
       mov ebx, dword ptr [a + esi * 4]
 
@@ -39,13 +41,17 @@ begin
       imul ebx, result
 
       // Сохранение результата в переменную
-      mov result, ebx
+        mov result, ebx
+
+      @end_if:
 
       // Увеличение счетчика
       inc esi
 
+      cmp ecx, n
+
       // Проверка на завершение цикла
-      loop @multiplyLoop
+      jnz @for_start
   end;
 
 
