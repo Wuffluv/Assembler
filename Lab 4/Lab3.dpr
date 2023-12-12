@@ -1,49 +1,56 @@
-program Lab3;
+program ProductOfSquares;
 
 {$APPTYPE CONSOLE}
 
 var
   n, i: integer;
-  numbers: array[1..100] of integer;
-  product: int64;
+  a: array[1..100] of integer; // Массив целых чисел
+  result: integer; // Результат вычислений
 
 begin
-  write('Введите количество чисел n: ');
+  // Ввод количества элементов
+  writeln('Enter the value of n: ');
   readln(n);
 
-  if (n <= 0) or (n > 100) then
-  begin
-    writeln('Количество чисел должно быть натуральным и не превышать 100.');
-    exit;
-  end;
-
-  write('Введите ', n, ' целых чисел: ');
+  // Ввод элементов массива
+  writeln('Enter ', n, ' integers:');
   for i := 1 to n do
-    read(numbers[i]);
-
-  product := 1; // Инициализируем переменную для хранения произведения
-
-  asm
-    mov rax, 1    // Устанавливаем rax в 1 (инициализируем произведение)
-    xor rcx, rcx  // Обнуляем rcx (счетчик)
-    xor rdx, rdx  // Обнуляем rdx (промежуточный результат)
-
-  @loop_start:
-    // Загружаем число из массива numbers в rsi
-    mov rsi, qword ptr [numbers + rcx*4] // Умножаем на 4, так как каждое число занимает 4 байта
-    // Умножаем текущее число (rsi) на текущее произведение (rdx)
-    imul rdx, rsi
-    // Увеличиваем счетчик (rcx)
-    inc rcx
-    // Сравниваем счетчик (rcx) с количеством чисел (n)
-    cmp rcx, n
-    // Если счетчик меньше n, продолжаем цикл
-    jl @loop_start
-
-    // Когда цикл завершен, сохраняем результат в переменной product
-    mov qword ptr [product], rdx
+  begin
+    write('a', i, ': ');
+    readln(a[i]);
   end;
 
-  writeln('Произведение чисел равно: ', product);
+  // Вычисление произведения квадратов с использованием ассемблерного кода
+  asm
+    // Инициализация результата
+    mov result, 1
+
+    // Цикл по массиву a
+    mov ecx, n        // Регистр ecx используется для хранения количества элементов массива
+    mov esi, 1        // Регистр esi используется для индексации массива
+    @multiplyLoop:
+      // Загрузка текущего элемента в регистр ebx
+      mov ebx, dword ptr [a + esi * 4]
+
+      // Умножение текущего элемента самого на себя
+      imul ebx, ebx
+
+      // Умножение текущего результата на текущий элемент
+      imul ebx, result
+
+      // Сохранение результата в переменную
+      mov result, ebx
+
+      // Увеличение счетчика
+      inc esi
+
+      // Проверка на завершение цикла
+      loop @multiplyLoop
+  end;
+
+  // Вывод результата
+  writeln('Product of squares: ', result);
+
+  readln;
 end.
 
