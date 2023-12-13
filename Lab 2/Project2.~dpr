@@ -1,4 +1,4 @@
-program Calculator;
+program lab2;
 
 {$APPTYPE CONSOLE}
 
@@ -6,38 +6,47 @@ uses
   SysUtils;
 
 var
-x, y, s:integer;
+  x, y, s: integer;
+
 begin
-readln (x);
-readln (y);
-asm
-mov eax, x
-mov ecx, y
-mov ebx , 0
+  // Ввод значений x и y с консоли
+  readln(x);
+  readln(y);
 
-mov edx, eax
-imul edx, ecx
-imul edx, ecx
-imul edx, eax
-imul edx, 3
 
-mov ebx, edx
+  asm
+    mov eax, x        // Загрузка x в регистр eax
+    mov ecx, y        // Загрузка y в регистр ecx
+    mov ebx, 0        // Обнуление регистра ebx
 
-imul edx, ecx, 2
-imul edx, ecx
-imul edx, eax
+    mov edx, eax      // Копирование значения x в регистр edx
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, eax     // Умножение edx на значение x
+    imul edx, 3       // Умножение edx на 3
 
-sub ebx,edx
+    mov ebx, edx      // Копирование значения edx в регистр ebx
 
-imul edx, ecx, 7
-imul edx, eax
-imul edx, eax
+    imul edx, ecx, 2  // Умножение edx на значение y, умноженное на 2
+    imul edx, ecx     // Умножение edx на значение y
+    imul edx, eax     // Умножение edx на значение x
 
-sub ebx,edx
+    sub ebx, edx      // Вычитание значения edx из значения ebx
 
-add ebx,6
+    imul edx, ecx, 7  // Умножение edx на значение y, умноженное на 7
+    imul edx, eax     // Умножение edx на значение x
+    imul edx, eax     // Умножение edx на значение x
 
-mov s, ebx
-end;
-writeln (s);
+    sub ebx, edx      // Вычитание значения edx из значения ebx
+
+    add ebx, 6        // Прибавление к значению ebx 6
+
+    mov s, ebx        // Сохранение значения ebx в переменную s
+  end;
+
+
+  
+  writeln(s);
+  readln;
 end.
+

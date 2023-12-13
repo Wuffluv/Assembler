@@ -19,7 +19,7 @@ begin
     mov isEven, 1
     jmp @done //Переходим к завершению
   @notEven:
-    // Если число четное
+    // Если число нечетное
     mov isEven, 0
   @done:
   end;

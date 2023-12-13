@@ -1,5 +1,7 @@
-program Calculator;
+program lab2;
 
+
+//почему imul а не mul
 {$APPTYPE CONSOLE}
 
 uses
@@ -13,9 +15,8 @@ begin
   readln(x);
   readln(y);
 
-  // Вставка ассемблерного кода для выполнения вычислений
+
   asm
-    // Начало блока ассемблерного кода
     mov eax, x        // Загрузка x в регистр eax
     mov ecx, y        // Загрузка y в регистр ecx
     mov ebx, 0        // Обнуление регистра ebx
@@ -44,9 +45,9 @@ begin
 
     mov s, ebx        // Сохранение значения ebx в переменную s
   end;
-  // Конец блока ассемблерного кода
 
-  // Вывод значения переменной s
+
+  
   writeln(s);
   readln;
 end.

@@ -2,6 +2,8 @@ program EvenCheck;
 
 {$APPTYPE CONSOLE}
 
+
+//как тест сравнивает логическую 1 и как на основании этого делается вывод число четное или нечетное
 var
   num, isEven: integer;
 

@@ -1,4 +1,4 @@
-program ProductOfSquares;
+Program lab4 ;
 
 {$APPTYPE CONSOLE}
 
@@ -23,6 +23,7 @@ begin
 
   asm
   @_start: //Метка начала
+      mov result, 0
     // Инициализация результата
     mov ebx, 0
     @for_start: // Метка старта цикла
@@ -34,8 +35,7 @@ begin
       // Загрузка текущего элемента в регистр ebx
       mov ebx, dword ptr [a + esi * 4]
 
-      // Умножение текущего элемента самого на себя
-      imul ebx, ebx
+     
 
       // Умножение текущего результата на текущий элемент
       imul ebx, result
